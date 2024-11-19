@@ -55,49 +55,29 @@ This project automates the process of running tests, generating coverage reports
 
 In the root directory of your repository, create a .env file with the following content:
 ```
-# env
 
 MY_GITHUB_TOKEN=<YOUR_PAT>
+TESTS_REPO=https://github.com/username/tests-repo
+DJANGO_REPO=https://github.com/username/django-repo
+COVERAGE_BASE_URL=https://username.github.io/tests-repo
+COMMENT_BASE_URL=https://api.github.com/repos/username/repository/pulls
+DJANGO_PROJECT_NAME=your_django_project_name
+
 ```
 
 ## Step 7: Set Up GitHub Pages Repo
 
 - Create a new public repo say test_repo for github pages 
 - In the test_repo repository, create a new branch named gh-pages.
-- Update the configuration files in app.py with the following:
-```
-TESTS_REPO = f"https://{GITHUB_TOKEN}@github.com/<YOUR_USERNAME>/<GH_PAGES_REPO_NAME>.git"
-DJANGO_REPO = f"https://{GITHUB_TOKEN}@github.com/<YOUR_USERNAME>/<DJANGO_REPO_NAME>.git"
-```
 
-
-## Step 8 : Configure app.py
-- Edit app.py and modify the following lines:
-- Line 46 to specify the path to your Django project:
-```bash
-django_project_path = os.path.join(repo_dir, "YOUR_DJANGO_PROJECT_NAME")
-```
-- On lines 77, 105, 107, 109 configure the name of your django project name
-
-## Step 9: Configure GitHub Pages URLs
-- Navigate to test_repo on github created in step 7 > settings > pages
-- Copy the live link from the GitHub Pages settings of your repository.
-- change your branch to gh-pages  in the branch section 
-- Update the 139-141 lines in app.py:
-```bash
-coverage_url = f"<YOUR_PAGES_URL>/pr-{pr_number}/index.html"
-test_report_url = f"<YOUR_PAGES_URL>/pr-{pr_number}/report.html"
-assets_url = f"<YOUR_PAGES_URL>/pr-{pr_number}/assets/style.css"
-```
-
-## Step 10:Run the Flask Application
+## Step 8:Run the Flask Application
 - Run flask server  and make port public 
 - The app will be accessible on the specified port after making it public  (e.g., 8000).
 
-## Step 11: Generate a Pull Request
+## Step 9: Generate a Pull Request
 - In your Django repository, create a pull request.
 
-## Step 11: Verify the Results
+## Step 10: Verify the Results
 - The webhook will trigger the Flask app, which will:
 - Clone the Django repository.
 - It will automatically run the tests with coverage and pytest.
